@@ -36,6 +36,7 @@ module.exports = {
       patterns: [
         { from: path.resolve(__dirname, 'public/sw.js'), to: 'sw.js' },
         { from: path.resolve(__dirname, 'public/icons/'), to: 'icons/' },
+        { from: path.resolve(__dirname, 'public/manifest.json'), to: 'manifest.json' },
       ],
     }),
   ],

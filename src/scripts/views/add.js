@@ -234,6 +234,17 @@ const Add = {
             errorContainer.style.display = 'block';
         }
     },
+    stop() {
+        if (cameraHelper) {
+            cameraHelper.stopCamera();
+            console.log('📷 Kamera berhasil dimatikan dari halaman Add.');
+            cameraHelper = null;
+        }
+    },
+
 };
+
+let cameraHelper = null; // ← TAMBAHKAN INI di luar Add
+
 
 export default Add;

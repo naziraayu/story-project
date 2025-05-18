@@ -6,7 +6,9 @@ class CameraHelper {
         this.canvasElement = null;
     }
   
+    // 异步初始化摄像头
     async initCamera(videoElement, canvasElement) {
+        // 将传入的videoElement和canvasElement赋值给this.videoElement和this.canvasElement
         this.videoElement = videoElement;
         this.canvasElement = canvasElement;
         
@@ -50,13 +52,15 @@ class CameraHelper {
     }
   
     stopCamera() {
-        if (this.mediaStream) {
-            this.mediaStream.getTracks().forEach((track) => {
-            track.stop();
-            });
-            this.mediaStream = null;
+        if (this._mediaStream) {
+            this._mediaStream.getTracks().forEach(track => track.stop());
+            console.log('📷 Kamera berhasil dimatikan (dari CameraHelper).');
+            this._mediaStream = null;
+        } else {
+            console.log('ℹ️ Tidak ada kamera aktif yang perlu dimatikan.');
         }
     }
+
 }
   
 export default CameraHelper;

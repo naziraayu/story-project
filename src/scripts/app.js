@@ -21,6 +21,7 @@ if ('Notification' in window && Notification.permission !== 'granted') {
 class App {
     constructor() {
         this._content = document.querySelector('#mainContent');
+        this._currentView = null;
         this._initiateAppShell();
     }
 
@@ -63,6 +64,10 @@ class App {
                 this._content.innerHTML = '<div class="error-message">Page not found</div>';
                 return;
             }
+
+            if (this._currentView && typeof this._currentView.stop === 'function') {
+                this._currentView.stop();
+            }
             
             try {
                 if (document.startViewTransition && typeof document.startViewTransition === 'function') {
@@ -73,6 +78,7 @@ class App {
                         } else {
                             await page.view.afterRender();
                         }
+                        this._currentView = page.view;
                     }).ready;
                 } else {
                     this._content.innerHTML = await page.view.render();
@@ -81,6 +87,7 @@ class App {
                     } else {
                         await page.view.afterRender();
                     }
+                    this._currentView = page.view;
                 }
             } catch (transitionError) {
                 console.error('View transition error:', transitionError);
@@ -90,6 +97,7 @@ class App {
                 } else {
                     await page.view.afterRender();
                 }
+                this._currentView = page.view;
             }
             
             AppBar.init();
@@ -124,6 +132,34 @@ window.addEventListener('load', async () => {
     // Inisialisasi tombol subscribe
     await initPushSubscriptionButton();
 });
+
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent the mini-infobar from appearing on mobile
+  e.preventDefault();
+  deferredPrompt = e;
+
+  // Tampilkan tombol "Add to Home Screen" jika tersedia
+  const installBtn = document.getElementById('installApp');
+  if (installBtn) {
+    installBtn.style.display = 'block';
+
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to the install prompt: ${outcome}`);
+        deferredPrompt = null;
+
+        if (outcome === 'accepted') {
+          installBtn.style.display = 'none';
+        }
+      }
+    });
+  }
+});
+
 
 async function initPushSubscriptionButton() {
     const subscribeButton = document.getElementById('subscribePush');

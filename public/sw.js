@@ -2,8 +2,13 @@ const CACHE_NAME = 'story-app-cache-v1';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
+  '/favicon.ico',
+  '/manifest.json',
+  '/app.js',
+  '/styles/main.css',
+  '/scripts/views/favorite.js',
+  '/scripts/presenter/favorite-presenter.js',
+  '/scripts/utils/favorite-db.js',
   '/app.bundle.js', // sesuaikan nama file bundle dari Webpack
 ];
 
@@ -11,22 +16,29 @@ const STATIC_ASSETS = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS);
+      return cache.addAll(FILES_TO_CACHE);
+    }).catch((err) => {
+      console.error('Cache addAll failed:', err);
     })
   );
-  self.skipWaiting();
 });
 
 // Ambil dari cache saat offline
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    }).catch(() => {
-      return caches.match('/index.html'); // fallback jika offline
-    })
+    caches.match(event.request)
+      .then((cachedResponse) => {
+        return cachedResponse || fetch(event.request);
+      })
+      .catch(() => {
+        // Fallback jika offline & tidak ada cache
+        if (event.request.mode === 'navigate') {
+          return caches.match('/offline.html'); // atau fallback lain
+        }
+      })
   );
 });
+
 
 // Update cache saat SW diaktifkan
 self.addEventListener('activate', (event) => {

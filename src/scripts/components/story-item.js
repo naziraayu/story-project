@@ -18,6 +18,15 @@ const StoryItem = (story) => `
             })}
             </p>
             <p class="story-item__description">${story.description}</p>
+                <button 
+                    class="favorite-button" 
+                    data-id="${story.id}" 
+                    data-name="${story.name}" 
+                    data-description="${story.description}" 
+                    data-photo="${story.photoUrl}" 
+                    data-created="${story.createdAt}">
+                    ❤️ Tambahkan ke Favorit
+                </button>
         </div>
     </article>
 `;

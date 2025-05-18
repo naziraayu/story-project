@@ -15,6 +15,7 @@ const AppBar = {
                 <ul>
                     <li><a href="#/" aria-label="home page">Home</a></li>
                     <li><a href="#/add" aria-label="add new story">Add Story</a></li>
+                    <li><a href="#/favorite" aria-label="favorite">Favorite</a></li>
                     <li><a href="#" id="logoutButton" aria-label="logout">Logout</a></li>
                 </ul>
                 ` 

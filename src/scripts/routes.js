@@ -7,6 +7,9 @@ import Register from './views/register';
 import HomePresenter from './presenter/home-presenter';
 import DetailPresenter from './presenter/detail-presenter';
 import AddPresenter from './presenter/add-presenter';
+import Favorite from './views/favorite.js';
+import FavoritePresenter from './presenter/favorite-presenter'; // ← Tambahkan ini
+
 
 const routes = {
     '/': {
@@ -28,6 +31,12 @@ const routes = {
     '/register': {
         view: Register,
         presenter: null,
+    },
+    '/favorite': {
+        view: Favorite,
+        presenter: new FavoritePresenter({
+        viewContainer: document.querySelector('#mainContent'),
+        }),
     },
 };
 
