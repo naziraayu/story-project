@@ -1,0 +1,40 @@
+.file-upload {
+    margin-top: 16px;
+}
+
+.file-upload label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.file-upload input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
+
+.login-form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-form p {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.login-form a {
+    color: #c1121f;
+    text-decoration: none;
+}
+
+.login-form a:hover {
+    text-decoration: underline;
+}

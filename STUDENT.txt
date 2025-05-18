@@ -1,0 +1,21 @@
+Aplikasi Story App - Dicoding Submission Project
+
+Teknologi yang digunakan:
+- HTML, CSS, JavaScript
+- Webpack untuk bundling
+- Leaflet.js untuk peta
+- View Transitions API untuk transisi halaman
+
+Cara menjalankan aplikasi:
+1. Install dependencies: npm install
+2. Development mode: npm run start-dev
+3. Build untuk production: npm run build
+
+Halaman dalam aplikasi:
+1. Home - Menampilkan daftar cerita
+2. Detail - Menampilkan detail cerita dan lokasi pada peta
+3. Add - Form untuk menambahkan cerita baru dengan kamera dan peta
+
+Login
+1. Email: aylanazefanya@gmail.com
+2. Password: 12345678
